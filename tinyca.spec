@@ -31,13 +31,11 @@ Perl-Tk.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/tinyca,%{_datadir}/tinyca}
 
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/tinyca}
-install -d $RPM_BUILD_ROOT%{_datadir}/tinyca
-
-install lib/*.pm	$RPM_BUILD_ROOT%{_datadir}/tinyca
-install templates/openssl.cnf	$RPM_BUILD_ROOT%{_sysconfdir}/tinyca
-install -m 755 tinyca $RPM_BUILD_ROOT%{_bindir}
+install lib/*.pm $RPM_BUILD_ROOT%{_datadir}/tinyca
+install templates/openssl.cnf $RPM_BUILD_ROOT%{_sysconfdir}/tinyca
+install tinyca $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
