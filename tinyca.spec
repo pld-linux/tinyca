@@ -2,12 +2,12 @@
 Summary:	Graphical Frontend for very simple Certification Authority
 Summary(pl):	Graficzny interfejs do bardzo prostego Centrum Certyfikacji
 Name:		tinyca
-Version:	0.5.2
+Version:	0.5.4
 Release:	1
 License:	GPL
 Group:		Applications
 Source0:	http://tinyca.sm-zone.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	572d51f95b65cbff16a0b4a566319645
+# Source0-md5:	d00f0f1358f52d81bdf19235485f6eaf
 URL:		http://tinyca.sm-zone.net/
 BuildRequires:	perl-MIME-Base64
 BuildRequires:	perl-gtk
