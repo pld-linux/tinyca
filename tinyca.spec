@@ -11,7 +11,7 @@ URL:		http://tinyca.sm-zone.net/
 BuildRequires:	perl-MIME-Base64
 BuildRequires:	perl-Tk
 BuildRequires:	rpm-perlprov >= 3.0.3-16
-Requires:	openssl-tools >= 0.9.7
+Requires:	openssl-tools
 BuildArch:	noarch
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
