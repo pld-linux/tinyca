@@ -10,7 +10,8 @@ Source0:	http://tinyca.sm-zone.net/%{name}-%{version}.tar.bz2
 # Source0-md5:	572d51f95b65cbff16a0b4a566319645
 URL:		http://tinyca.sm-zone.net/
 BuildRequires:	perl-MIME-Base64
-BuildRequires:	perl-Tk
+BuildRequires:	perl-gtk
+BuildRequires:	perl-gnome
 BuildRequires:	rpm-perlprov >= 3.0.3-16
 Requires:	openssl-tools
 BuildArch:	noarch
