@@ -3,7 +3,7 @@ Summary:	Graphical Frontend for very simple Certification Authority
 Summary(pl):	Graficzny interfejs do bardzo prostego Centrum Certyfikacji
 Name:		tinyca
 Version:	0.6.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications
 Source0:	http://tinyca.sm-zone.net/%{name}-%{version}.tar.bz2
@@ -33,9 +33,10 @@ Perl-Tk.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/tinyca,%{_datadir}/tinyca}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/tinyca,%{_datadir}/tinyca/GUI}
 
 install lib/*.pm $RPM_BUILD_ROOT%{_datadir}/tinyca
+install lib/GUI/*.pm $RPM_BUILD_ROOT%{_datadir}/tinyca/GUI
 install templates/openssl.cnf $RPM_BUILD_ROOT%{_sysconfdir}/tinyca
 install tinyca $RPM_BUILD_ROOT%{_bindir}
 
