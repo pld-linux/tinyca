@@ -15,7 +15,7 @@ BuildRequires:	perl-gnome
 BuildRequires:	rpm-perlprov >= 3.0.3-16
 Requires:	openssl-tools
 BuildArch:	noarch
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Graphical Frontend for very simple CA. Based on OpenSSL and Perl-Tk.
