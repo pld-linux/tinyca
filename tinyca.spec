@@ -26,8 +26,8 @@ Perl-Tk.
 %setup -q -n TinyCA
 
 %build
-perl -pi -e 's:./lib:%{_datadir}/tinyca:g' tinyca
-perl -pi -e 's:./templates:%{_sysconfdir}/tinyca:g' tinyca
+%{__perl} -pi -e 's:./lib:%{_datadir}/tinyca:g' tinyca
+%{__perl} -pi -e 's:./templates:%{_sysconfdir}/tinyca:g' tinyca
 
 %install
 rm -rf $RPM_BUILD_ROOT
