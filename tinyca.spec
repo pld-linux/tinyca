@@ -6,20 +6,22 @@ Version:	0.4.4
 Release:	1
 License:	GPL
 Group:		Applications
-Source0:	http://tinyca.sm-zone.net/tinyca-0.4.4.tar.bz2
+Source0:	http://tinyca.sm-zone.net/%{name}-%{version}.tar.bz2
 URL:		http://tinyca.sm-zone.net/
-BuildRequires:	perl-Tk
 BuildRequires:	perl-MIME-Base64
+BuildRequires:	perl-Tk
 BuildRequires:	rpm-perlprov >= 3.0.3-16
 Requires:	openssl-tools
 BuildArch:	noarch
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Graphical Frontend for very simple CA. Based on OpenSSL and Perl-Tk
+Graphical Frontend for very simple CA. Based on OpenSSL and Perl-Tk.
 
 %description -l pl
-Graficzny interfejs do bardzo prostego CA. Bazuje na OpenSSL oraz Perl-Tk.
+Graficzny interfejs do bardzo prostego CA. Bazuje na OpenSSL oraz
+Perl-Tk.
+
 %prep
 %setup -q -n TinyCA
 
@@ -33,9 +35,12 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/tinyca}
 install -d $RPM_BUILD_ROOT%{_datadir}/tinyca
 
-install -m 644 lib/*.pm	$RPM_BUILD_ROOT%{_datadir}/tinyca
+install lib/*.pm	$RPM_BUILD_ROOT%{_datadir}/tinyca
 install templates/openssl.cnf	$RPM_BUILD_ROOT%{_sysconfdir}/tinyca
 install -m 755 tinyca $RPM_BUILD_ROOT%{_bindir}
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
