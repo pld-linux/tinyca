@@ -7,6 +7,7 @@ Release:	1
 License:	GPL
 Group:		Applications
 Source0:	http://tinyca.sm-zone.net/%{name}-%{version}.tar.bz2
+# Source0-md5:	71afdcadbf47180e153d15179240bca5
 URL:		http://tinyca.sm-zone.net/
 BuildRequires:	perl-MIME-Base64
 BuildRequires:	perl-Tk
