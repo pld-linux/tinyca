@@ -2,15 +2,15 @@
 Summary:	Graphical Frontend for very simple Certification Authority
 Summary(pl):	Graficzny interfejs do bardzo prostego Centrum Certyfikacji
 Name:		tinyca
-Version:	0.6.8
+Version:	0.7.0
 Release:	1
 License:	GPL
 Group:		Applications
-Source0:	http://tinyca.sm-zone.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	89ae47c104179be62e8a40c522053c84
+Source0:	http://tinyca.sm-zone.net/%{name}2-%{version}.tar.bz2
+# Source0-md5:	a8a7b398876811c2cc961a2b922f8f8c
 URL:		http://tinyca.sm-zone.net/
 BuildRequires:	perl-MIME-Base64
-BuildRequires:	perl-gtk
+BuildRequires:	perl-Gtk2
 BuildRequires:	perl-gnome
 BuildRequires:	rpm-perlprov >= 3.0.3-16
 Requires:	openssl-tools
@@ -25,11 +25,11 @@ Graficzny interfejs do bardzo prostego CA. Bazuje na OpenSSL oraz
 Perl-Tk.
 
 %prep
-%setup -q
+%setup -q -n %{name}2-%{version}
 
 %build
-%{__perl} -pi -e 's:./lib:%{_datadir}/tinyca:g' tinyca
-%{__perl} -pi -e 's:./templates:%{_sysconfdir}/tinyca:g' tinyca
+%{__perl} -pi -e 's:./lib:%{_datadir}/tinyca:g' tinyca2
+%{__perl} -pi -e 's:./templates:%{_sysconfdir}/tinyca:g' tinyca2
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -38,7 +38,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/tinyca,%{_datadir}/tinyca/G
 install lib/*.pm $RPM_BUILD_ROOT%{_datadir}/tinyca
 install lib/GUI/*.pm $RPM_BUILD_ROOT%{_datadir}/tinyca/GUI
 install templates/openssl.cnf $RPM_BUILD_ROOT%{_sysconfdir}/tinyca
-install tinyca $RPM_BUILD_ROOT%{_bindir}
+install tinyca2 $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
