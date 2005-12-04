@@ -9,8 +9,8 @@ Group:		Applications
 Source0:	http://tinyca.sm-zone.net/%{name}2-%{version}.tar.bz2
 # Source0-md5:	2ee7a3f7414f6b7147f6c20c23749777
 URL:		http://tinyca.sm-zone.net/
-BuildRequires:	perl-MIME-Base64
 BuildRequires:	perl-Gtk2
+BuildRequires:	perl-MIME-Base64
 BuildRequires:	perl-gnome
 BuildRequires:	rpm-perlprov >= 3.0.3-16
 Requires:	openssl-tools
@@ -49,4 +49,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/tinyca
 %dir %{_sysconfdir}/tinyca
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/tinyca/*.*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/tinyca/*.*
