@@ -1,6 +1,6 @@
 %include        /usr/lib/rpm/macros.perl
 Summary:	Graphical Frontend for very simple Certification Authority
-Summary(pl):	Graficzny interfejs do bardzo prostego Centrum Certyfikacji
+Summary(pl.UTF-8):   Graficzny interfejs do bardzo prostego Centrum Certyfikacji
 Name:		tinyca
 Version:	0.7.4
 Release:	1
@@ -20,7 +20,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Graphical Frontend for very simple CA. Based on OpenSSL and Perl-Tk.
 
-%description -l pl
+%description -l pl.UTF-8
 Graficzny interfejs do bardzo prostego CA. Bazuje na OpenSSL oraz
 Perl-Tk.
 
