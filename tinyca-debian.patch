@@ -1,0 +1,899 @@
+--- tinyca-0.7.5.orig/debian/NEWS
++++ tinyca-0.7.5/debian/NEWS
+@@ -0,0 +1,11 @@
++tinyca (0.7.0-1) unstable; urgency=low
++
++  * TinyCA has been rewritten to use perl-gkt2.  Due to this change the
++    author of tinyca has renamed the executable to "tinyca2".  In order to
++    avoid unnecessary clutter, I will stay with the new name and not
++    introduce a compatibility symlink.
++  
++    From now on, please invoke tinyca as tinyca2.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Fri, 12 Aug 2005 14:26:45 +0200
++
+--- tinyca-0.7.5.orig/debian/changelog
++++ tinyca-0.7.5/debian/changelog
+@@ -0,0 +1,249 @@
++tinyca (0.7.5-5) unstable; urgency=medium
++
++  * Bug fix: "options set with radio buttons when creating a new
++    certificate are mixed up", thanks to Mateusz Kijowski.
++    Closes: #724586
++  * Bug fix: "perl syntax warnings (OU != array)". Thanks to
++    Andrew Schulman for the patch. Closes: #380003, LP: #374241
++  * Packaging cleanup:
++    - Fixed lintian warnings:
++      - debian-rules-missing-recommended-target build-arch
++      - debian-rules-missing-recommended-target build-indep
++    - Bumped Standards-Version to 3.9.5.
++  
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Mon, 24 Feb 2014 23:17:24 +0100
++
++tinyca (0.7.5-4) unstable; urgency=medium
++
++  * Ensured compatibility with openssl 1.0.1 (Closes: #702233). Thanks to
++    Mateusz Kijowski for the bug report.
++  * Fixed deprecation warning form perl about use of qw() without
++    parentheses (Closes: 702433). Thanks to Jörgen Hägg for the patch.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Mon, 25 Mar 2013 02:25:09 +0100
++
++tinyca (0.7.5-3) unstable; urgency=low
++
++  * Fixed deprecation warning in About dialog (Closes: #519164).  Thanks
++    to Guillaume Delacour for the patch
++  * Applied Swedish translation update (Closes: #551652).  Thanks to
++    Marcus Better for the patch.
++  * Improved English style in message shown when the certificate is valid
++    longer than its CA (Closes: #499017).  Thanks to Pete Boyd for the
++    suggestion.
++  * Fixed a problem causing errors with some usernames (e.g. certsign)
++    (Closes: #561335).
++  * The tinyca basedir ($HOME/.TinyCA) and default export directory can
++    now optionally be configured through environment variables
++    (TINYCA_BASEDIR, TINYCA_EXPORTDIR) (Closes: #454380).  Thanks to Alex
++    Samad for the patch.
++
++  * Packaging cleanup:
++    - Fixed typo in control file by moving the URL of the upstream homepage
++      into the Homepage control file field (Closes: #485576).
++    - Fixed lintian warnings:
++      - debhelper-but-no-misc-depends
++      - package-uses-deprecated-debhelper-compat-version
++      - ancient-standards-version
++      - menu-item-uses-apps-section
++      - menu-item-creates-new-section
++      - debian-rules-sets-DH_COMPAT
++      - dh-clean-k-is-deprecated
++    - Bumped Standards-Version to 3.8.3.
++  * Switched to git for package version control.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed, 07 Jul 2010 00:16:44 +0200
++
++tinyca (0.7.5-2) unstable; urgency=low
++
++  * Move perl modules from /usr/lib/tinyca to /usr/share/tinyca.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed, 25 Oct 2006 23:39:37 +0200
++
++tinyca (0.7.5-1) unstable; urgency=low
++
++  * New upstream release
++  * Improved package description.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Sat, 12 Aug 2006 19:01:50 +0200
++
++tinyca (0.7.4-1) unstable; urgency=low
++
++  * New upstream release (Closes: #367829)
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed, 19 Jul 2006 22:51:44 +0200
++
++tinyca (0.7.3-2) unstable; urgency=low
++
++  * Apply upstream patch which fixes a crash when CA is created with
++    nsCertType (Closes: #354386).
++  * Fix failure to start if the composite extension in X.org is enabled
++    (patch pulled from upstream CVS).
++  * debhelper is required for the clean target and must therefore be listed
++    in Build-Depends.
++  * Bumped Standards-Version to 3.7.2.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Sat,  4 Jun 2006 11:19:25 +0200
++
++tinyca (0.7.3-1) unstable; urgency=low
++
++  * New upstream release (Closes: #364617)
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Sun, 28 May 2006 16:58:22 +0200
++
++tinyca (0.7.2-3) unstable; urgency=low
++
++  * No changes.  Bumping version number so that dak accepts the upload.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Sat, 13 May 2006 18:59:46 -0500
++
++tinyca (0.7.2-2) unstable; urgency=medium
++
++  * Fixed openssl version checks again (Closes: #360555, #360766).  Thanks
++    to Peter Marschall for the patch.
++  * Fixed broken quit behavior (Closes: #360767).  Thanks to Peter
++    Marschall for the patch.
++  * Fixed "undef" warnings due to undefined MD5 fingerprints (Closes: #360768).
++    Thanks to Peter Marschall for the patch.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Fri, 12 May 2006 18:14:03 -0500
++
++tinyca (0.7.2-1) unstable; urgency=medium
++
++  * New upstream release (Closes: #342353, #331162).
++  * Added Swedish PO translation, thanks to Daniel Nylander
++    (Closes: #349639).
++  * Urgency medium because this release fixes annoying bugs.
++  * Use the provided desktop file.
++  * Update manpage to reflect the fact that the executable has been renamed to
++    tinyca2.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Tue, 28 Feb 2006 21:28:21 +0100
++
++tinyca (0.7.1-1) unstable; urgency=low
++
++  * New upstream release
++    - Adds additional export options (Closes: #293931).
++    - Correctly imports serial numbers from index.txt (Closes: #330729).
++  * Removed libgnome2-perl from the list of dependencies (Closes: #332690).
++  * Never uploaded.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Sat, 22 Oct 2005 19:14:33 +0200
++
++tinyca (0.7.0-2) unstable; urgency=high
++
++  * tinyca: crashes on startup, thanks to Jasper Spaans for the patch
++    (Closes: #323124).
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Fri, 26 Aug 2005 17:02:11 +0200
++
++tinyca (0.7.0-1) unstable; urgency=high
++
++  * New upstream release.
++  * From this version on, tinyca is based on Perl/Gtk2.
++  * Urgency high (fixes grave bug): "endless loop on startup",
++    (Closes: #308879).
++  * Fixed spelling in menu file, thanks to Daniel Baumann
++    (Closes: #320614).
++  * Bug fix: "tinyca: [INTL:de] German PO file corrections", thanks to
++    Jens Seidel (Closes: #313847).
++  * Bumped Standards-Version to 3.6.2.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Fri, 12 Aug 2005 00:42:27 +0200
++
++tinyca (0.6.8-1) unstable; urgency=low
++
++  * New upstream release (Closes: #271183)
++  * Bug fix: "wrong path for locales in perlscript *tinyca", thanks to
++    Daniel J. Priem for the patch (Closes: #295950).
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Mon, 28 Mar 2005 16:44:18 +0200
++
++tinyca (0.6.7-1) unstable; urgency=low
++
++  * New upstream release
++  * Bug fix: "tinyca: Undefined $type variable causes Perl warnings",
++    patch by Matthew Grant, applied upstream (Closes: #282866).
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed,  8 Dec 2004 23:27:52 +0100
++
++tinyca (0.6.6-3) unstable; urgency=low
++
++  * Bug fix: "tinyca: Build not idempotent, debian/rules does not delete
++    .mo locale binary files.", thanks to Matthew Grant (Closes: #282865).
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Sat, 27 Nov 2004 15:07:55 +0100
++
++tinyca (0.6.6-2) unstable; urgency=low
++
++  * New (old) maintainer (Thanks Wesley for sponsoring).
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed,  1 Sep 2004 12:04:17 +0200
++
++tinyca (0.6.6-1) unstable; urgency=low
++
++  * Now an official Debian package (closes: 268773)
++  * New upstream release
++  * New maintainer
++  * Changed Build-Depends to correctly be Build-Depends-Indep
++  * Updated rules to install Spanish and Czech translations.
++  * Make sure translations are built from source.
++  * Fixed lintian: copyright-should-refer-to-common-license-file-for-gpl
++  * Fixed lintian: unquoted-string-in-menu-item
++  * Fixed lintian: description-synopsis-might-not-be-phrased-properly
++
++ -- Wesley J. Landaker <wjl@icecavern.net>  Sat, 28 Aug 2004 19:55:58 -0600
++
++tinyca (0.6.4-1) unstable; urgency=low
++
++  * New upstream release
++
++ -- Christoph Ulrich Scholler <scholler@.fnb.tu-darmstadt.de>  Fri, 16 Jul 2004 16:18:22 +0200
++
++tinyca (0.6.1-1) unstable; urgency=low
++
++  * New upstream release
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed,  2 Jun 2004 12:27:11 +0200
++
++tinyca (0.6.0-1) unstable; urgency=low
++
++  * New upstream release
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed, 12 May 2004 12:26:19 +0200
++
++tinyca (0.5.4-1) unstable; urgency=low
++
++  * New upstream release
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Mon, 27 Oct 2003 11:03:24 +0100
++
++tinyca (0.5.2-1) unstable; urgency=low
++
++  * New upstream release
++  * Fixed a bug where exporting a key in PEM or DER format without passphrase
++    would print a perl warning in KEY.pm:195.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed, 10 Sep 2003 17:04:50 +0200
++
++tinyca (0.5.1-2) unstable; urgency=low
++
++  * Fixed dependencies.
++  * Added a recommendation for zip.
++  * Updated package description.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed, 27 Aug 2003 16:06:35 +0200
++
++tinyca (0.5.1-1) unstable; urgency=low
++
++  * New upstream release
++  * The GUI in this release is written in perl-Gtk/Gnome.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed, 27 Aug 2003 15:00:31 +0200
++
++tinyca (0.4.9-1) unstable; urgency=low
++
++  * Initial Release.
++
++ -- Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>  Wed,  9 Jul 2003 12:26:10 +0200
++
+--- tinyca-0.7.5.orig/debian/compat
++++ tinyca-0.7.5/debian/compat
+@@ -0,0 +1 @@
++7
+--- tinyca-0.7.5.orig/debian/control
++++ tinyca-0.7.5/debian/control
+@@ -0,0 +1,25 @@
++Source: tinyca
++Section: utils
++Priority: optional
++Maintainer: Christoph Ulrich Scholler <scholler@fnb.tu-darmstadt.de>
++Build-Depends-Indep: gettext
++Build-Depends: debhelper (>> 7.0.0)
++Standards-Version: 3.9.5
++Homepage: http://tinyca.sm-zone.net/
++
++Package: tinyca
++Architecture: all
++Depends: libgtk2-perl, liblocale-gettext-perl, openssl (>> 0.9.7e), ${misc:Depends}
++Recommends: zip
++Description: simple graphical program for certification authority management
++ TinyCA is a program with a simple graphical user interface that makes
++ managing a small CA (Certification Authority) easy.  TinyCA works as
++ a frontend for openssl and can deal with several independent CAs.
++ .
++ With TinyCA you can create and manage x509 and S/MIME server and
++ client certificates.  You can choose between RSA and DSA keys, as
++ well as between different digest algorithms.
++ .
++ The certificates can be exported as PEM, DER, TXT and PKCS#12 or as a
++ convenient archive containing both key and certificate.  Certificates
++ can be revoked by adding them to a certificate revocation list.
+--- tinyca-0.7.5.orig/debian/copyright
++++ tinyca-0.7.5/debian/copyright
+@@ -0,0 +1,27 @@
++Package Maintainers:
++  Ulrich Scholler <scholler@fnb.tu-darmstadt.de> from Wed,  9 Jul 2003 12:26:10 +0200 
++  Wesley J. Landaker <wjl@icecavern.net>         from Sat, 28 Aug 2004 18:27:46 -0600
++
++Upstream Author: Stephan Martin <sm@sm-zone.net>
++Upstream Website: http://tinyca.sm-zone.net/
++
++Copyright:
++
++  Copyright © 2004 Stephan Martin <sm@sm-zone.net>
++
++  This program is free software; you can redistribute it and/or modify it
++  under the terms of the GNU General Public License as published by the
++  Free Software Foundation; either version 2 of the License, or (at your
++  option) any later version.
++ 
++  This program is distributed in the hope that it will be useful, but
++  WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++  General Public License for more details.
++ 
++  You should have received a copy of the GNU General Public License along
++  with this program; if not, write to the Free Software Foundation, Inc.,
++  59 Temple Place - Suite 330, Boston, MA  02111, USA.
++
++On debian systems, you can find a copy of the license text in:
++/usr/share/common-licenses/GPL-2
+--- tinyca-0.7.5.orig/debian/install
++++ tinyca-0.7.5/debian/install
+@@ -0,0 +1,9 @@
++locale/cs/LC_MESSAGES/tinyca2.mo usr/share/locale/cs/LC_MESSAGES/
++locale/de/LC_MESSAGES/tinyca2.mo usr/share/locale/de/LC_MESSAGES/
++locale/es/LC_MESSAGES/tinyca2.mo usr/share/locale/es/LC_MESSAGES/
++locale/fr/LC_MESSAGES/tinyca2.mo usr/share/locale/fr/LC_MESSAGES/
++locale/sv/LC_MESSAGES/tinyca2.mo usr/share/locale/sv/LC_MESSAGES/
++templates/openssl.cnf  etc/tinyca/
++lib/*.pm usr/share/tinyca
++lib/GUI/*.pm usr/share/tinyca/GUI
++tinyca2 usr/bin/
+--- tinyca-0.7.5.orig/debian/menu
++++ tinyca-0.7.5/debian/menu
+@@ -0,0 +1,5 @@
++?package(tinyca):\
++  needs="X11"\
++  section="Applications/System/Security"\
++  title="TinyCA"\
++  command="/usr/bin/tinyca2"
+--- tinyca-0.7.5.orig/debian/rules
++++ tinyca-0.7.5/debian/rules
+@@ -0,0 +1,60 @@
++#!/usr/bin/make -f
++# Sample debian/rules that uses debhelper.
++# GNU copyright 1997 to 1999 by Joey Hess.
++
++# Uncomment this to turn on verbose mode.
++#export DH_VERBOSE=1
++
++build: build-arch build-indep
++build-arch: build-stamp
++build-indep: build-stamp
++
++build-stamp:
++	dh_testdir
++	# As a script-program, tinyca needs no compilation
++	touch build-stamp
++
++clean:
++	dh_testdir
++	dh_testroot
++	rm -f build-stamp
++	dh_clean
++	rm -rf locale
++
++install: build
++	dh_testdir
++	dh_testroot
++	dh_prep
++	dh_installdirs
++
++	# Add here commands to install the package into debian/tinyca.
++	sh install.sh
++
++
++
++# Build architecture-independent files here.
++binary-indep: build install
++	dh_testdir
++	dh_testroot
++	dh_installdocs
++	dh_installexamples
++	dh_installmenu
++	dh_installman debian/tinyca2.1
++	dh_installchangelogs CHANGES
++	dh_install
++	chmod 755 $(CURDIR)/debian/tinyca/usr/bin/tinyca2
++	dh_link
++	dh_strip
++	dh_compress
++	dh_fixperms
++	dh_installdeb
++	dh_shlibdeps
++	dh_gencontrol
++	dh_md5sums
++	dh_builddeb
++
++# Build architecture-dependent files here.
++binary-arch: build install
++
++binary: binary-indep binary-arch
++.PHONY: build clean binary-indep binary-arch binary install
+--- tinyca-0.7.5.orig/debian/source/format
++++ tinyca-0.7.5/debian/source/format
+@@ -0,0 +1 @@
++1.0
+--- tinyca-0.7.5.orig/debian/tinyca2.1
++++ tinyca-0.7.5/debian/tinyca2.1
+@@ -0,0 +1,52 @@
++.\"                                      Hey, EMACS: -*- nroff -*-
++.\" First parameter, NAME, should be all caps
++.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
++.\" other parameters are allowed: see man(7), man(1)
++.TH TINYCA 1 "July  9, 2003"
++.\" Please adjust this date whenever revising the manpage.
++.\"
++.\" Some roff macros, for reference:
++.\" .nh        disable hyphenation
++.\" .hy        enable hyphenation
++.\" .ad l      left justify
++.\" .ad b      justify to both left and right margins
++.\" .nf        disable filling
++.\" .fi        enable filling
++.\" .br        insert line break
++.\" .sp <n>    insert n+1 empty lines
++.\" for manpage-specific macros, see man(7)
++.SH NAME
++tinyca \- Very simple Certification Authority
++.SH SYNOPSIS
++.B tinyca
++.SH DESCRIPTION
++This manual page documents briefly the
++.B tinyca
++command.
++This manual page was written for the Debian distribution
++because the original program does not have a manual page.
++.PP
++.\" TeX users may be more comfortable with the \fB<whatever>\fP and
++.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
++.\" respectively.
++\fBtinyca\fP is a very simple Certification Authority.  It features a graphical
++interface to create Certificate Requests, sign them with the key of the
++Certificate Authority and export the signed certificate and the corresponding
++keys in various formats.
++.PP
++Upon first invocation, information for a new Certificate Authority is generated.
++.SH OPTIONS
++Tinyca has no commandline options.
++.SH FILES
++.PP
++.IP "/etc/tinyca/openssl.cnf"
++Openssl configuration for tinyca
++.IP "~/.TinyCA/"
++Storage place for the different CAs
++.SH SEE ALSO
++.PP
++.BR openssl(1).
++.SH AUTHOR
++.PP
++This manual page was written by Ulrich Scholler <scholler@fnb.tu-darmstadt.de>,
++for the Debian GNU/Linux system (but may be used by others).
+--- tinyca-0.7.5.orig/debian/watch
++++ tinyca-0.7.5/debian/watch
+@@ -0,0 +1,3 @@
++version=2
++http://tinyca.sm-zone.net/tinyca2-(.*)\.tar\.gz        debian uupdate
++
+--- tinyca-0.7.5.orig/install.sh
++++ tinyca-0.7.5/install.sh
+@@ -1,9 +1,15 @@
+ #!/bin/bash
+ 
++rm -rf locale
++
+ mkdir -p locale/de/LC_MESSAGES
+ mkdir -p locale/es/LC_MESSAGES
+ mkdir -p locale/cs/LC_MESSAGES
++mkdir -p locale/fr/LC_MESSAGES
++mkdir -p locale/sv/LC_MESSAGES
+ 
+ msgfmt po/de.po -o locale/de/LC_MESSAGES/tinyca2.mo
+ msgfmt po/es.po -o locale/es/LC_MESSAGES/tinyca2.mo
+ msgfmt po/cs.po -o locale/cs/LC_MESSAGES/tinyca2.mo
++msgfmt po/fr.po -o locale/fr/LC_MESSAGES/tinyca2.mo
++msgfmt po/sv.po -o locale/sv/LC_MESSAGES/tinyca2.mo
+--- tinyca-0.7.5.orig/lib/GUI.pm
++++ tinyca-0.7.5/lib/GUI.pm
+@@ -978,7 +978,7 @@
+    $piter = $store->append($root);
+    $store->set($piter, 0 => $t);
+ 
+-   for my $l qw(CN EMAIL O OU C ST L) {
++   for my $l (qw(CN EMAIL O OU C ST L)) {
+       if(defined($parsed->{$l})) {
+          if($l eq "OU") {
+             foreach my $ou (@{$parsed->{'OU'}}) {
+@@ -1003,7 +1003,7 @@
+       $piter = $store->append($root);
+       $store->set($piter, 0 => $t);
+    
+-      for my $l qw(CN EMAIL O OU C ST L) {
++      for my $l (qw(CN EMAIL O OU C ST L)) {
+          if(defined($parsed->{'ISSUERDN'}->{$l})) {
+             if($l eq "OU") {
+                foreach my $ou (@{$parsed->{'ISSUERDN'}->{'OU'}}) {
+@@ -1029,7 +1029,7 @@
+       $piter = $store->append($root);
+       $store->set($piter, 0 => $t);
+    
+-      for my $l qw(STATUS NOTBEFORE NOTAFTER) {
++      for my $l (qw(STATUS NOTBEFORE NOTAFTER)) {
+          if(defined($parsed->{$l})) {
+             $citer = $store->append($piter);
+             $store->set($citer, 
+@@ -1045,7 +1045,7 @@
+    $store->set($piter, 0 => $t);
+ 
+ 
+-   for my $l qw(STATUS SERIAL KEYSIZE PK_ALGORITHM SIG_ALGORITHM TYPE) {
++   for my $l (qw(STATUS SERIAL KEYSIZE PK_ALGORITHM SIG_ALGORITHM TYPE)) {
+       if(defined($parsed->{$l})) {
+          $citer = $store->append($piter);
+          $store->set($citer, 
+@@ -1060,7 +1060,7 @@
+       $piter = $store->append($root);
+       $store->set($piter, 0 => $t);
+    
+-      for my $l qw(FINGERPRINTMD5 FINGERPRINTSHA1) {
++      for my $l (qw(FINGERPRINTMD5 FINGERPRINTSHA1)) {
+          if(defined($parsed->{$l})) {
+             $citer = $store->append($piter);
+             $store->set($citer, 
+@@ -1249,7 +1249,7 @@
+    # table for request data
+    my $cc=0;
+    my $ous = 1;
+-   if(defined($opts->{'OU'})) {
++   if(defined($opts->{'OU'}) and ref($opts->{'OU'}) eq 'ARRAY') {
+       $ous = @{$opts->{'OU'}} - 1;
+    }
+    $reqtable = Gtk2::Table->new(1, 13 + $ous, 0);
+@@ -1297,7 +1297,7 @@
+          _("Organization Name (eg. company):"),
+          \$opts->{'O'}, $reqtable, 10, 1);
+ 
+-   if(defined($opts->{'OU'})) {
++   if(defined($opts->{'OU'}) and ref($opts->{'OU'}) eq 'ARRAY') {
+       foreach my $ou (@{$opts->{'OU'}}) {
+          $entry = GUI::HELPERS::entry_to_table(
+                _("Organizational Unit Name (eg. section):"),
+@@ -2521,7 +2521,7 @@
+    my ($aboutdialog, $href, $label);
+ 
+    $aboutdialog = Gtk2::AboutDialog->new();
+-   $aboutdialog->set_name("TinyCA2");
++   $aboutdialog->set_program_name("TinyCA2");
+    $aboutdialog->set_version($main->{'version'});
+    $aboutdialog->set_copyright("2002-2006 Stephan Martin");
+    $aboutdialog->set_license("GNU Public License (GPL)");
+@@ -2534,6 +2534,8 @@
+          _("French: Thibault Le Meur <Thibault.Lemeur\@supelec.fr>"));
+ 
+    $aboutdialog->show_all();
++   $aboutdialog->run;
++   $aboutdialog->destroy;
+ 
+    return;
+ }
+@@ -2634,7 +2636,7 @@
+ 
+    my ($box, $button_ok, $button_cancel, $t);
+ 
+-   $t = _("The Certificate will be longer valid than your CA!");
++   $t = _("The certificate will be valid longer than its CA!");
+    $t .= "\n";
+    $t .= _("This may cause problems with some software!!");
+ 
+@@ -3094,9 +3096,9 @@
+    for $value (keys %values) {
+       my $display_name = $values{$value};
+       my $key = Gtk2::RadioButton->new($previous_key, $display_name);
+-      $key->set_active(1) if(defined($$var) && $$var eq $value);
+       $key->signal_connect('toggled' =>
+ 			   sub{GUI::CALLBACK::toggle_to_var($key, $var, $value)});
++      $key->set_active(1) if(defined($$var) && $$var eq $value);
+       $radiobox->add($key);
+       $previous_key = $key;
+    }
+--- tinyca-0.7.5.orig/lib/GUI/X509_browser.pm
++++ tinyca-0.7.5/lib/GUI/X509_browser.pm
+@@ -624,7 +624,7 @@
+ 
+   $dir = $self->{'actdir'};
+   # cut off the last directory name to provide the ca-directory
+-  $dir =~ s/\/certs|\/req|\/keys$//;
++  $dir =~ s/(\/certs|\/req|\/keys)$//;
+   return($dir);
+ }
+ 
+--- tinyca-0.7.5.orig/lib/OpenSSL.pm
++++ tinyca-0.7.5/lib/OpenSSL.pm
+@@ -22,6 +22,7 @@
+ 
+ use POSIX;
+ use IPC::Open3;
++use IO::Select;
+ use Time::Local;
+ 
+ sub new {
+@@ -41,7 +42,7 @@
+    close(TEST);
+ 
+    # set version (format: e.g. 0.9.7 or 0.9.7a)
+-   if($v =~ /\b(0\.9\.[678][a-z]?)\b/) {
++   if($v =~ /\b(0\.9\.[6-9][a-z]?)\b/ || $v =~ /\b(1\.0\.[01][a-z]?)\b/) {
+       $self->{'version'} = $1;
+    }
+ 
+@@ -817,7 +818,7 @@
+    my $self = shift;
+    my $opts = { @_ };
+    
+-   my ($tmp, $ext, $ret, $file, $pid, $cmd);
++   my ($tmp, $ext, $ret, $file, $pid, $cmd, $cmdout, $cmderr);
+    $file = HELPERS::mktmp($self->{'tmp'}."/data");
+ 
+    $cmd = "$self->{'bin'} $opts->{'cmd'}";
+@@ -830,16 +831,7 @@
+       $cmd .= " -outform $opts->{'outform'}";
+    }
+ 
+-   my($rdfh, $wtfh);
+-   $ext = "$cmd\n\n";
+-   $pid = open3($wtfh, $rdfh, $rdfh, $cmd);
+-   print $wtfh "$opts->{'data'}\n";
+-   while(<$rdfh>){
+-      $ext .= $_;
+-      # print STDERR "DEBUG: cmd ret: $_";
+-   };
+-   waitpid($pid, 0);
+-   $ret = $?>>8;
++   ($ret, $tmp, $ext) = _run_with_fixed_input($cmd, $opts->{'data'});
+ 
+    if($self->{'broken'}) {
+        if(($ret != 0 && $opts->{'cmd'} ne 'crl') ||
+@@ -859,14 +851,15 @@
+       }
+    }
+ 
+-   open(IN, $file) || do {
+-      my $t = sprintf(_("Can't open file %s: %s"), $file, $!);
+-      GUI::HELPERS::print_warning($t);
+-      return;
+-   };
+-   $tmp .= $_ while(<IN>);
+-   close(IN);
+-
++   if (-s $file) { # If the file is empty, the payload is in $tmp (via STDOUT of the called process).
++      open(IN, $file) || do {
++         my $t = sprintf(_("Can't open file %s: %s"), $file, $!);
++         GUI::HELPERS::print_warning($t);
++         return;
++      };
++      $tmp .= $_ while(<IN>);
++      close(IN);
++   }
+    unlink($file);
+ 
+    return($ret, $tmp, $ext);
+@@ -1076,4 +1069,72 @@
+    }
+ }
+    
++
++=over
++
++=item _run_with_fixed_input($cmd, $input)
++
++This function runs C<$cmd> and writes the C<$input> to STDIN of the
++new process (all at once).
++
++While the command runs, all of its output to STDOUT and STDERR is
++collected.
++
++After the command terminates (closes both STDOUT and STDIN) the
++function returns the command's return value as well as everything it
++wrote to its STDOUT and STDERR in a list.
++
++=back
++
++=cut
++
++sub _run_with_fixed_input {
++   my $cmd = shift;
++   my $input = shift;
++
++   my ($wtfh, $rdfh, $erfh, $pid, $sel, $ret, $stdout, $stderr);
++   $erfh = Symbol::gensym; # Must not be false, otherwise it is lumped together with rdfh
++
++   # Run the command
++   $pid = open3($wtfh, $rdfh, $erfh, $cmd);
++   print $wtfh $input, "\n";
++
++   $stdout = '';
++   $stderr = '';
++   $sel = new IO::Select($rdfh, $erfh);
++   while (my @fhs = $sel->can_read()) {
++      foreach my $fh (@fhs) {
++         if ($fh == $rdfh) { # STDOUT
++            my $bytes_read = sysread($fh, my $buf='', 1024);
++            if ($bytes_read == -1) {
++               warn("Error reading from child's STDOUT: $!\n");
++               $sel->remove($fh);
++             } elsif ($bytes_read == 0) {
++               # print("Child's STDOUT closed.\n");
++               $sel->remove($fh);
++             } else {
++               $stdout .= $buf;
++             }
++         }
++         elsif ($fh == $erfh) { # STDERR
++            my $bytes_read = sysread($fh, my $buf='', 1024);
++            if ($bytes_read == -1) {
++               warn("Error reading from child's STDERR: $!\n");
++               $sel->remove($fh);
++            } elsif ($bytes_read == 0) {
++               # print("Child's STDERR closed.\n");
++               $sel->remove($fh);
++            } else {
++              $stderr .= $buf;
++            }
++         }
++      }
++   }
++
++   waitpid($pid, 0);
++   $ret = $?>>8;
++
++   return ($ret, $stdout, $stderr)
++   }
++
+ 1
+--- tinyca-0.7.5.orig/po/cs.po
++++ tinyca-0.7.5/po/cs.po
+@@ -1257,7 +1257,7 @@
+ msgstr "pokud odpovídající certifikát je stále platný"
+ 
+ #: ../lib/GUI.pm:2636
+-msgid "The Certificate will be longer valid than your CA!"
++msgid "The certificate will be valid longer than its CA!"
+ msgstr "Certifikát bude platný déle než Vaše CA!"
+ 
+ #: ../lib/GUI.pm:2638
+--- tinyca-0.7.5.orig/po/de.po
++++ tinyca-0.7.5/po/de.po
+@@ -1245,7 +1245,7 @@
+ msgstr "falls das Zertifikat noch gültig ist"
+ 
+ #: ../lib/GUI.pm:2636
+-msgid "The Certificate will be longer valid than your CA!"
++msgid "The certificate will be valid longer than its CA!"
+ msgstr "Das Zertifikat wird länger gültig sein als die CA!"
+ 
+ #: ../lib/GUI.pm:2638
+--- tinyca-0.7.5.orig/po/es.po
++++ tinyca-0.7.5/po/es.po
+@@ -1260,7 +1260,7 @@
+ msgstr "�Si el Certificado correspondiente no ha caducado o ha sido revocado "
+ 
+ #: ../lib/GUI.pm:2636
+-msgid "The Certificate will be longer valid than your CA!"
++msgid "The certificate will be valid longer than its CA!"
+ msgstr "�El Certificado tendr� mayor duraci�n que la CA!"
+ 
+ #: ../lib/GUI.pm:2638
+--- tinyca-0.7.5.orig/po/fr.po
++++ tinyca-0.7.5/po/fr.po
+@@ -1257,7 +1257,7 @@
+ msgstr "Si le Certificat correspondant est tjours valide"
+ 
+ #: ../lib/GUI.pm:2636
+-msgid "The Certificate will be longer valid than your CA!"
++msgid "The certificate will be valid longer than its CA!"
+ msgstr ""
+ "La date de validit� du Certificat d�passe la date de validit� de la CA!"
+ 
+--- tinyca-0.7.5.orig/po/sv.po
++++ tinyca-0.7.5/po/sv.po
+@@ -1,19 +1,23 @@
+ # Swedish translation of tinyca.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the tinyca package.
++#
+ # Daniel Nylander <po@danielnylander.se>, 2006.
++# Marcus Better <marcus@better.se>, 2009.
+ #
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: tinyca\n"
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2005-06-05 18:44+0200\n"
+-"PO-Revision-Date: 2006-07-10 16:23+0100\n"
+-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
++"PO-Revision-Date: 2009-10-19 12:02+0200\n"
++"Last-Translator: Marcus Better <marcus@better.se>\n"
+ "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=utf-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"X-Generator: Lokalize 1.0\n"
++"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
+ #: ../lib/CA.pm:45
+ msgid "error: can't open basedir: "
+@@ -253,7 +257,7 @@
+ #: ../lib/CA.pm:766
+ #: ../lib/CA.pm:912
+ msgid "Can't open Index file: "
+-msgstr "Kan inte öppna Index-fil: "
++msgstr "Kan inte öppna indexfil: "
+ 
+ #: ../lib/CA.pm:774
+ #: ../lib/CA.pm:919
+@@ -652,7 +656,7 @@
+ 
+ #: ../lib/GUI.pm:246
+ msgid "Keys"
+-msgstr "Tangenter"
++msgstr "Nycklar"
+ 
+ #: ../lib/GUI.pm:289
+ msgid "Requests"
+@@ -1383,7 +1387,7 @@
+ msgstr "om det korresponderande certifikatet är giltigt fortfarande"
+ 
+ #: ../lib/GUI.pm:2675
+-msgid "The Certificate will be longer valid than your CA!"
++msgid "The certificate will be valid longer than its CA!"
+ msgstr "Certifikatet kommer vara giltigt längre än ditt CA!"
+ 
+ #: ../lib/GUI.pm:2677
+--- tinyca-0.7.5.orig/tinyca2
++++ tinyca-0.7.5/tinyca2
+@@ -18,7 +18,7 @@
+ # along with this program; if not, write to the Free Software
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
+ 
+-BEGIN { unshift(@INC, './lib'); # put here the location of the modules
++BEGIN { unshift(@INC, '/usr/share/tinyca'); # put here the location of the modules
+ }
+ 
+ use strict;
+@@ -46,7 +46,7 @@
+ use TCONFIG;
+ 
+ setlocale(LC_MESSAGES, "");
+-bindtextdomain("tinyca2", "./locale/");
++bindtextdomain("tinyca2", "/usr/share/locale/");
+ textdomain("tinyca2");
+ 
+ # https://bugs.gentoo.org/show_bug.cgi?id=78576
+@@ -76,7 +76,7 @@
+ }
+ 
+ # directory with the templates
+-$init->{'templatedir'} = "./templates";
++$init->{'templatedir'} = "/etc/tinyca";
+ 
+ if(not -d $init->{'templatedir'}) {
+    print gettext("Can't find templatedir.\n");
+@@ -85,8 +85,17 @@
+ }
+ 
+ # location for CA files
+-$init->{'basedir'}   = $ENV{HOME}."/.TinyCA";
+-$init->{'exportdir'} = $ENV{HOME};
++if( exists $ENV{'TINYCA_BASEDIR'}) {
++   $init->{'basedir'}   = $ENV{'TINYCA_BASEDIR'}
++} else {
++   $init->{'basedir'}   = $ENV{HOME}."/.TinyCA";
++}
++
++if( exists $ENV{'TINYCA_EXPORTDIR'}) {
++   $init->{'exportdir'} = $ENV{'TINYCA_EXPORTDIR'};
++} else {
++   $init->{'exportdir'} = $ENV{HOME};
++}
+ 
+ umask(0077);
+ 
