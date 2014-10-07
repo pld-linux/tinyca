@@ -3,7 +3,7 @@ Summary:	Graphical Frontend for very simple Certification Authority
 Summary(pl.UTF-8):	Graficzny interfejs do bardzo prostego Centrum Certyfikacji
 Name:		tinyca
 Version:	0.7.5
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications
 Source0:	http://tinyca.sm-zone.net/%{name}2-%{version}.tar.bz2
