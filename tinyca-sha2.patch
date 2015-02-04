@@ -1,56 +1,161 @@
-diff -ur orig/tinyca-0.7.5/lib/CA.pm tinyca-0.7.5/lib/CA.pm
---- orig/tinyca-0.7.5/lib/CA.pm	2006-07-25 15:12:00.000000000 -0500
-+++ tinyca-0.7.5/lib/CA.pm	2014-11-01 12:32:46.277413381 -0500
-@@ -349,7 +349,7 @@
-       $opts = {};
-       $opts->{'days'} = 3650; # set default to 10 years
-       $opts->{'bits'} = 4096;
--      $opts->{'digest'} = 'sha1';
-+      $opts->{'digest'} = 'sha512';
+diff -urN tinyca2-0.7.5.org/lib/CA.pm tinyca2-0.7.5/lib/CA.pm
+--- tinyca2-0.7.5.org/lib/CA.pm	2006-07-25 22:12:00.000000000 +0200
++++ tinyca2-0.7.5/lib/CA.pm	2015-02-04 06:33:28.719715647 +0100
+@@ -1062,6 +1062,7 @@
+             'outdir'     => $self->{$ca}->{'dir'}."/newcerts/",
+             'keyfile'    => $self->{$ca}->{'dir'}."/cacert.key",
+             'cacertfile' => $self->{$ca}->{'dir'}."/cacert.pem",
++            'digest'     => $opts->{'digest'},
+             'pass'       => $opts->{'passwd'},
+             'days'       => $opts->{'days'},
+             'parentpw'   => $opts->{'parentpw'},
+diff -urN tinyca2-0.7.5.org/lib/CERT.pm tinyca2-0.7.5/lib/CERT.pm
+--- tinyca2-0.7.5.org/lib/CERT.pm	2006-07-25 22:12:00.000000000 +0200
++++ tinyca2-0.7.5/lib/CERT.pm	2015-02-04 06:33:19.512832137 +0100
+@@ -480,6 +480,9 @@
+          $out = '';
+          $out .= "Fingerprint (MD5): $opts->{'parsed'}->{'FINGERPRINTMD5'}\n";
+          $out .= "Fingerprint (SHA1): $opts->{'parsed'}->{'FINGERPRINTSHA1'}\n\n";
++         $out .= "Fingerprint (SHA256): $opts->{'parsed'}->{'FINGERPRINTSHA256'}\n\n";
++         $out .= "Fingerprint (SHA384): $opts->{'parsed'}->{'FINGERPRINTSHA384'}\n\n";
++         $out .= "Fingerprint (SHA512): $opts->{'parsed'}->{'FINGERPRINTSHA512'}\n\n";
+       } else {
+          $out = '';
+       }
+diff -urN tinyca2-0.7.5.org/lib/GUI/WORDS.pm tinyca2-0.7.5/lib/GUI/WORDS.pm
+--- tinyca2-0.7.5.org/lib/GUI/WORDS.pm	2006-07-25 22:12:00.000000000 +0200
++++ tinyca2-0.7.5/lib/GUI/WORDS.pm	2015-02-04 06:33:19.512832137 +0100
+@@ -70,6 +70,9 @@
+     'STATUS'                => _("Status"),
+     'FINGERPRINTMD5'        => _("Fingerprint (MD5)"),
+     'FINGERPRINTSHA1'       => _("Fingerprint (SHA1)"),
++    'FINGERPRINTSHA256'     => _("Fingerprint (SHA256)"),
++    'FINGERPRINTSHA384'     => _("Fingerprint (SHA384)"),
++    'FINGERPRINTSHA512'     => _("Fingerprint (SHA512)"),
+     _("Not set")                             => 'none',
+     _("Ask User")                            => 'user',
+     _("critical")                            => 'critical',
+diff -urN tinyca2-0.7.5.org/lib/GUI/X509_infobox.pm tinyca2-0.7.5/lib/GUI/X509_infobox.pm
+--- tinyca2-0.7.5.org/lib/GUI/X509_infobox.pm	2006-07-25 22:12:00.000000000 +0200
++++ tinyca2-0.7.5/lib/GUI/X509_infobox.pm	2015-02-04 06:33:01.949085141 +0100
+@@ -90,6 +90,15 @@
+             'center', 0, 0);
+       $self->{'x509textbox'}->pack_start($self->{'certfingerprintsha1'}, 
+             0, 0, 0);
++
++      if(defined($self->{'certfingerprintsha256'})) {
++         $self->{'certfingerprintsha256'}->destroy();
++      } 
++      $self->{'certfingerprintsha256'} = GUI::HELPERS::create_label(
++            _("Fingerprint (SHA256)").": ".$parsed->{'FINGERPRINTSHA256'},
++            'center', 0, 0);
++      $self->{'x509textbox'}->pack_start($self->{'certfingerprintsha256'}, 
++            0, 0, 0);
+    }
  
-       if(defined($mode) && $mode eq "sub") { # create SubCA, use defaults
-          $opts->{'parentca'} = $main->{'CA'}->{'actca'};
-@@ -453,7 +453,7 @@
-       $opts = {};
-       $opts->{'days'} = 3650; # set default to 10 years
-       $opts->{'bits'} = 4096;
--      $opts->{'digest'} = 'sha1';
-+      $opts->{'digest'} = 'sha512';
-       
-       $main->show_ca_import_dialog($opts);
-       return;
-diff -ur orig/tinyca-0.7.5/lib/GUI.pm tinyca-0.7.5/lib/GUI.pm
---- orig/tinyca-0.7.5/lib/GUI.pm	2014-11-01 12:51:39.000000000 -0500
-+++ tinyca-0.7.5/lib/GUI.pm	2014-11-01 12:25:31.123392155 -0500
-@@ -37,6 +37,10 @@
+    if (($mode eq 'cert') || ($mode eq 'cacert')) {
+diff -urN tinyca2-0.7.5.org/lib/GUI.pm tinyca2-0.7.5/lib/GUI.pm
+--- tinyca2-0.7.5.org/lib/GUI.pm	2015-02-04 06:32:29.398318503 +0100
++++ tinyca2-0.7.5/lib/GUI.pm	2015-02-04 06:33:19.512832137 +0100
+@@ -29,14 +29,17 @@
+ # This hash maps our internal MD names to the displayed digest names.
+ # Maybe it should live in a crypto-related file instead of a UI-related file?
+ my %md_algorithms = (
+-		     'md5' => 'MD5',
+-		     'sha1' => 'SHA1',
+-		     'md2' => 'MD2',
+-		     'mdc2' => 'MDC2',
+-		     'md4' => 'MD4',
++		     'md5' => 'ins.MD5',
++# duplicate	     'sha1' => 'SHA1',
++# n/a		     'md2' => 'MD2',
++# n/a		     'mdc2' => 'MDC2',
++		     'md4' => 'ins.MD4',
  		     'ripemd160' => 'RIPEMD-160',
  #		     'sha' => 'SHA',
  		     'sha1' => 'SHA-1',
-+		     'sha224' => 'SHA-224',
 +		     'sha256' => 'SHA-256',
 +		     'sha384' => 'SHA-384',
 +		     'sha512' => 'SHA-512',
  		     );
  
  my %bit_lengths = (
-diff -ur orig/tinyca-0.7.5/lib/REQ.pm tinyca-0.7.5/lib/REQ.pm
---- orig/tinyca-0.7.5/lib/REQ.pm	2006-07-25 15:12:00.000000000 -0500
-+++ tinyca-0.7.5/lib/REQ.pm	2014-11-01 12:30:12.025870028 -0500
+@@ -1060,7 +1063,7 @@
+       $piter = $store->append($root);
+       $store->set($piter, 0 => $t);
+    
+-      for my $l (qw(FINGERPRINTMD5 FINGERPRINTSHA1)) {
++      for my $l (qw(FINGERPRINTMD5 FINGERPRINTSHA1 FINGERPRINTSHA256 FINGERPRINTSHA384 FINGERPRINTSHA512)) {
+          if(defined($parsed->{$l})) {
+             $citer = $store->append($piter);
+             $store->set($citer, 
+diff -urN tinyca2-0.7.5.org/lib/OpenSSL.pm tinyca2-0.7.5/lib/OpenSSL.pm
+--- tinyca2-0.7.5.org/lib/OpenSSL.pm	2015-02-04 06:32:29.398318503 +0100
++++ tinyca2-0.7.5/lib/OpenSSL.pm	2015-02-04 06:33:19.516165552 +0100
+@@ -674,6 +674,47 @@
+       GUI::HELPERS::print_warning($t, $ext);
+    }
+ 
++   $cmd = "$self->{'bin'} x509 -noout -fingerprint -sha256 -in $file";
++   $ext = "$cmd\n\n";
++   $pid = open3($wtfh, $rdfh, $rdfh, $cmd);
++   while(<$rdfh>){
++      $ext .= $_;
++      ($k, $v) = split(/=/);
++      $tmp->{'FINGERPRINTSHA256'} = $v if($k =~ /SHA256 Fingerprint/i);
++      chomp($tmp->{'FINGERPRINTSHA256'});
++   }
++   waitpid($pid, 0);
++   $ret = $? >> 8;
++
++   $cmd = "$self->{'bin'} x509 -noout -fingerprint -sha384 -in $file";
++   $ext = "$cmd\n\n";
++   $pid = open3($wtfh, $rdfh, $rdfh, $cmd);
++   while(<$rdfh>){
++      $ext .= $_;
++      ($k, $v) = split(/=/);
++      $tmp->{'FINGERPRINTSHA384'} = $v if($k =~ /SHA384 Fingerprint/i);
++      chomp($tmp->{'FINGERPRINTSHA384'});
++   }
++   waitpid($pid, 0);
++   $ret = $? >> 8;
++
++   $cmd = "$self->{'bin'} x509 -noout -fingerprint -sha512 -in $file";
++   $ext = "$cmd\n\n";
++   $pid = open3($wtfh, $rdfh, $rdfh, $cmd);
++   while(<$rdfh>){
++      $ext .= $_;
++      ($k, $v) = split(/=/);
++      $tmp->{'FINGERPRINTSHA512'} = $v if($k =~ /SHA512 Fingerprint/i);
++      chomp($tmp->{'FINGERPRINTSHA512'});
++   }
++   waitpid($pid, 0);
++   $ret = $? >> 8;
++
++   if($ret) {
++      $t = _("Error reading fingerprint from Certificate");
++      GUI::HELPERS::print_warning($t, $ext);
++   }
++
+    # get subject in openssl format
+    $cmd = "$self->{'bin'} x509 -noout -subject -in $file";
+    $ext = "$cmd\n\n";
+diff -urN tinyca2-0.7.5.org/lib/REQ.pm tinyca2-0.7.5/lib/REQ.pm
+--- tinyca2-0.7.5.org/lib/REQ.pm	2006-07-25 22:12:00.000000000 +0200
++++ tinyca2-0.7.5/lib/REQ.pm	2015-02-04 06:33:19.516165552 +0100
 @@ -59,7 +59,7 @@
           GUI::HELPERS::print_error($t);
        }
        $opts->{'bits'}   = 4096;
 -      $opts->{'digest'} = 'sha1';
-+      $opts->{'digest'} = 'sha512';
++      $opts->{'digest'} = 'sha256';
        $opts->{'algo'}   = 'rsa';
        if(defined($opts) && $opts eq "sign") {
           $opts->{'sign'} = 1;
-@@ -426,6 +426,14 @@
+@@ -426,6 +426,12 @@
           $opts->{'digest'} = "md5";
        } elsif ($opts->{'digest'} =~ /^sha1/) {
           $opts->{'digest'} = "sha1";
-+      } elsif ($opts->{'digest'} =~ /^sha224/) {
-+         $opts->{'digest'} = "sha224";
 +      } elsif ($opts->{'digest'} =~ /^sha256/) {
 +         $opts->{'digest'} = "sha256";
 +      } elsif ($opts->{'digest'} =~ /^sha384/) {
