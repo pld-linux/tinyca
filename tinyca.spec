@@ -1,4 +1,3 @@
-%include        /usr/lib/rpm/macros.perl
 Summary:	Graphical Frontend for very simple Certification Authority
 Summary(pl.UTF-8):	Graficzny interfejs do bardzo prostego Centrum Certyfikacji
 Name:		tinyca
