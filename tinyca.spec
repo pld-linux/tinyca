@@ -27,8 +27,8 @@ Perl-Tk.
 
 %prep
 %setup -q -n %{name}2-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %{__perl} -pi -e 's:./lib:%{_datadir}/tinyca:g' tinyca2
